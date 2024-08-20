@@ -1,5 +1,8 @@
+package ar.edu.untref.dyasc;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class testFibonacci {
 
@@ -113,12 +116,47 @@ public class testFibonacci {
         assertArrayEquals(esperado, resultado);
     }
     
-    /*Prueba del numero de oro*/
+    /*Prueba del numero de oro 1
+     * caso 1: con cantVueltas = 1. Como necesita 2 numeros se especifico que por defecto las 2 primeras vueltas se quedara con el valor más alto de la serie.
+    */
+    @Test
+    public void testNumOro1() {
+        fibonacci.getFibonacci(1); //{0}
+        float resultado = fibonacci.getNumeroDeOro();
+        float esperado = 0;
+        assertEquals(esperado, resultado, 0.0001f);
+    }
+    
+    /*Prueba del numero de oro 2
+     * caso 2: cantVueltas = 2. Como el 1/0 no se puede hacer se utiliza el mismo criterio que el caso 1.
+    */
+    @Test
+    public void testNumOro2() {
+        fibonacci.getFibonacci(8); //{0, 1}
+        float resultado = fibonacci.getNumeroDeOro();
+        float esperado = (float) 13/ (float) 8;
+        assertEquals(esperado, resultado, 0.0001f);
+    }
+    
+    /*Prueba del numero de oro 3
+     * Caso funcional
+    */
     @Test
     public void testNumOro() {
         fibonacci.getFibonacci(8); //{0, 1, 1, 2, 3, 5, 8, 13}
         float resultado = fibonacci.getNumeroDeOro();
         float esperado = (float) 13/ (float) 8;
+        assertEquals(esperado, resultado, 0.0001f);
+    }
+    
+    /*Prueba del numero de oro 4 Falla
+     * La ultima ejecucion fallo y no se puede obtener el numero de oro
+    */
+    @Test
+    public void testNumOroFalla() {
+        fibonacci.getFibonacci(0);
+        float resultado = fibonacci.getNumeroDeOro();
+        float esperado = -1;
         assertEquals(esperado, resultado, 0.0001f);
     }
     

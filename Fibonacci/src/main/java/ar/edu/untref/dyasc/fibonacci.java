@@ -1,12 +1,16 @@
+package ar.edu.untref.dyasc;
 import java.util.Scanner;
 
 public class fibonacci {
     private static int[] fiboSalida;
     public static int indice = 0;
+    public static boolean falla = false;
 
     public static void main(String[] args) {
         calcularFibonacci();
-        getNumeroDeOro();
+        if (args.length > 0 && args[0].equals("oro")){
+            getNumeroDeOro();
+        }
     }
 
     public static void calcularFibonacci() {
@@ -22,6 +26,7 @@ public class fibonacci {
             getFibonacci(cantVueltas);
         } catch (NumberFormatException e) {
             // Capturar la excepción si el String no es un número entero válido
+            falla = true;
             System.out.println("La cantidad de vueltas posee un formato invatido.");
         }
     }
@@ -29,6 +34,7 @@ public class fibonacci {
     public static int[] getFibonacci(int cantVueltas) {
         //secuencia de Fibonacci
         try {
+            falla = false;
             if (cantVueltas >= 1){ 
                 if (cantVueltas >= 48) { 
                     throw new fibonacciException("La cantidad de vueltas debe ser menor que 48, debido a que se sobrepasa el valor que pueden almacenar los datos tipo int.\n");
@@ -46,6 +52,7 @@ public class fibonacci {
             }
             return fiboSalida;
         } catch (fibonacciException e) {
+            falla = true;
             System.out.println(e.getMessage() + " Por lo cual no puede ser " + cantVueltas + ".");
             return null;
         }
@@ -70,10 +77,22 @@ public class fibonacci {
     }
 
     public static float getNumeroDeOro() {
-        float fiboMax =  fiboSalida[fiboSalida.length-1];
-        float fiboMaxMenos1 = fiboSalida[fiboSalida.length-2];
-        float numOro = fiboMax/fiboMaxMenos1;
-        System.out.print("\nEl numero de oro obtenido con este largo de la secuencia de fibonacci es " + numOro);
-        return numOro;
+        try{
+            if (falla) {
+                throw new fibonacciException("");
+            }
+            float fiboMax =  fiboSalida[fiboSalida.length-1];
+            float numOro = fiboMax;
+            if (fiboSalida.length > 2){
+                float fiboMaxMenos1 = fiboSalida[fiboSalida.length-2];
+                numOro = fiboMax/fiboMaxMenos1;
+            }
+            System.out.print("\nEl numero de oro obtenido con este largo de la secuencia de fibonacci es " + numOro);
+            return numOro;
+        }catch (fibonacciException e){
+            //Si hay un error por el cual no se pudo obtener la ultima secuencia fibonacci no obtengo el numero de oro, 
+            //porque o ni bien no se ejecuto la clase ni una vez bien o hubo una cant de vueltas invalida por el tipo de dato o no estar entre 1 y 47.
+        }
+        return -1;
     }
 }
