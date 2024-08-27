@@ -7,31 +7,53 @@ public class fibonacci {
     public static boolean falla = false;
 
     public static void main(String[] args) {
-        calcularFibonacci();
-        if (args.length > 0 && args[0].equals("oro")){
-            getNumeroDeOro();
+        try {
+            if (args.length > 1 && args[0].startsWith("-o=")) { 
+                String dicPrint = args[0].substring(3);
+                if (dicPrint.contains("v") || dicPrint.contains("h") || dicPrint.contains("d") || dicPrint.contains("i") ) {    
+                    getFibonacci(Integer.parseInt(args[1]), dicPrint);
+                } else {
+                    throw new fibonacciException(dicPrint);
+                }
+            }else if(!args[0].equals("oro") || !args[0].startsWith("-o=")){
+                getFibonacci(Integer.parseInt(args[0]), "hd");
+            }else {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            if (args.length > 1 && (args[1].equals("oro") || (args.length > 2 && args[2].equals("oro")))){
+                getNumeroDeOro();
+            }
+        } catch (NumberFormatException e){
+            // Capturar la excepción si el String no es un número entero válido
+            falla = true;
+            System.out.println("La cantidad de vueltas posee un formato invalido.");
+        } catch (fibonacciException e) {
+            falla = true;
+            System.out.println("La direccion no tiene un formato valido. Solo puede contener las siguientes conbinaciones vd vi hd hi. No se puede usar " + e.getMessage());
+        } catch (ArrayIndexOutOfBoundsException e){
+            falla = true;
+            System.out.println("No puede ejecutarse el calculo de la secuencia de fibonacci sin tener un numero maximo"); 
         }
     }
 
     public static void calcularFibonacci() {
-        try {
-            //obtencion y convercion de vueltas
-            Scanner scanner = new Scanner(System.in);
+        //obtencion y convercion de vueltas
+        try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Vueltas de fibonacci: ");
-            String vueltas = scanner.nextLine(); 
+            String vueltas = scanner.nextLine();
             int cantVueltas = Integer.parseInt(vueltas);
+            
             scanner.close();
-
             //calculo de fibonacci
-            getFibonacci(cantVueltas);
-        } catch (NumberFormatException e) {
+            getFibonacci(cantVueltas, "hd");
+        }catch (NumberFormatException e) {
             // Capturar la excepción si el String no es un número entero válido
             falla = true;
-            System.out.println("La cantidad de vueltas posee un formato invatido.");
+            System.out.println("La cantidad de vueltas posee un formato invalido.");
         }
     }
 
-    public static int[] getFibonacci(int cantVueltas) {
+    public static int[] getFibonacci(int cantVueltas, String formatoPrint) {
         //secuencia de Fibonacci
         try {
             falla = false;
@@ -46,7 +68,7 @@ public class fibonacci {
                     fiboSalida[indice] = 1;
                     Obtenerfibonacci(cantVueltas - 2,1,0);
                 }
-                imprimirFibo();
+                imprimirFibo(formatoPrint);
             }else{
                 throw new fibonacciException("La cantidad de vueltas debe ser un entero mayor a 0.");
             }
@@ -70,9 +92,17 @@ public class fibonacci {
         return -1;
     }
 
-    public static void imprimirFibo() {
+    public static void imprimirFibo(String formato) {
+        int num;
         for (int vuelta = 0; vuelta < fiboSalida.length; vuelta++) {
-            System.out.print(Integer.toString(fiboSalida[vuelta]) + " ");
+            num = vuelta;
+            if (formato.contains("i")) {
+                num = fiboSalida.length - vuelta - 1;
+            }
+            System.out.print(Integer.toString(fiboSalida[num]) + " ");
+            if(formato.contains("v")){
+                System.out.print("\n");   
+            }
         }
     }
 
