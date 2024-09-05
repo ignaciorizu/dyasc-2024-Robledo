@@ -1,7 +1,11 @@
-package java.ar.edu.untref.dyasc;
+package ar.edu.untref.dyasc;
 
 public class FibonacciEjecutable {
     public static void main(String[] args) {
+        fibonacciMain(args);
+    }
+
+    public static void fibonacciMain(String[] args){
         try{
             OpcionesFibonacci opciones = new OpcionesFibonacci(args);
             Fibonacci fibo = new Fibonacci();
@@ -11,5 +15,5 @@ public class FibonacciEjecutable {
         } catch(FibonacciException e){
             System.out.println(e.getMessage());
         }
-    }
+    } 
 }

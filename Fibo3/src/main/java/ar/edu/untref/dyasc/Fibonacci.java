@@ -1,4 +1,4 @@
-package java.ar.edu.untref.dyasc;
+package ar.edu.untref.dyasc;
 
 public class Fibonacci {
     private int[] fiboSalida;

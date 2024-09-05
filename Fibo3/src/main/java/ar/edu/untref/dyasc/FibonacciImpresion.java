@@ -1,4 +1,4 @@
-package java.ar.edu.untref.dyasc;
+package ar.edu.untref.dyasc;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,12 +44,12 @@ public class FibonacciImpresion {
             if (this.opciones.obtenerDireccion()) {
                 num = this.fibonacci.length - vuelta - 1;
             }
-            //Impresion de valor ej pa posicion num
-            salida += Integer.toString(this.fibonacci[num]) + " ";
             //Impresion en Orientación inversa
             if(this.opciones.obtenerOrientacion()){
                 salida += "\n";   
             }
+            //Impresion de valor ej pa posicion num
+            salida += Integer.toString(this.fibonacci[num]) + " ";
         }
          
         return salida;
@@ -57,36 +57,32 @@ public class FibonacciImpresion {
 
     /*Se imprime en formato de sumatoria.*/
     private String imprimirSumatoria() {
-        int fiboProximo = this.fibonacci[this.fibonacci.length-1] + this.fibonacci[this.fibonacci.length-2];
-        int sumaFibo = fiboProximo - 1 ;
-        //Incio de formato de salida
-        String salida = "fibo<"+ this.fibonacci.length +">s: " + obtenerSumatoria() + "|" + sumaFibo;
+        String salida = "fibo<"+ this.fibonacci.length +">s: " + obtenerSumatoria();
         return salida;
     }
 
     /*Calculo de la sumatoria.*/
     private int obtenerSumatoria() {
-        int suma = 0;
-        for (int vuelta : this.fibonacci) {
-            suma += vuelta;
-        }
-        return suma;
+        int fiboProximo = this.fibonacci[this.fibonacci.length-1] + this.fibonacci[this.fibonacci.length-2];
+        int fiboProximoProximo = fiboProximo + this.fibonacci[this.fibonacci.length-1];
+        int sumaFibo = fiboProximoProximo - 1 ;
+        return sumaFibo;
     }
 
     /*Crear y escribir el archivo de la salida.*/
-    private void crearSalida(String obtenerSalidaNombre, String salida) {
+    private void crearSalida(String salidaNombre, String salida) {
+        salidaNombre = "Fibo3/Salidas/" + salidaNombre;
         /*
          *PrintWriter se encarga de crear un objeto para escribir.
          *FileWrite crea un archivo con el nombre pasado por parametro.
          */
-        try(PrintWriter escritor = new PrintWriter(new FileWriter(obtenerSalidaNombre))) {
+        try(PrintWriter escritor = new PrintWriter(new FileWriter(salidaNombre))) {
             // Escribir en el archivo
             escritor.println(salida);
-            System.out.println("fibo<" + this.fibonacci.length + "> guardado en " + obtenerSalidaNombre);
+            System.out.println("fibo<" + this.fibonacci.length + "> guardado en " + salidaNombre);
         } catch (IOException e) {
             System.out.println("Ocurrió un error al crear o escribir en el archivo.\n" + e.getMessage());
         }
-    
     }
 
     /*Se imprime el numero de oro.*/

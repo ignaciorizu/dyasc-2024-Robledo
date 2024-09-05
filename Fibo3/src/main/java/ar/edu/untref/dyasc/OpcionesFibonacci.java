@@ -1,4 +1,4 @@
-package java.ar.edu.untref.dyasc;
+package ar.edu.untref.dyasc;
 
 public class OpcionesFibonacci {
     private boolean direccion = false;
@@ -67,7 +67,7 @@ public class OpcionesFibonacci {
                 this.salidaNombre = argumento.substring(3);
             }
             if (esUnNumero(argumento)) {
-                this.modo = argumento.substring(3);
+                this.vueltas = Integer.parseInt(argumento);
             }
             if (argumento.startsWith("oro")) {
                 this.numOro = true;
@@ -86,6 +86,16 @@ public class OpcionesFibonacci {
     private void comprobarOrientacion(String orientacion){
         if (orientacion.contains("v") ) {    
             this.orientacion = true;
+        }
+    }
+
+    /*Compruebo si estoy en un argumento numerico.*/
+    private boolean esUnNumero(String argumento) {
+        try {
+            Integer.valueOf(argumento);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
@@ -122,14 +132,5 @@ public class OpcionesFibonacci {
     /*Si la salida es true entonces se obtendra el numero de oro, caso contrario no se lo obtendra*/
     public boolean buscarOro() {
         return this.numOro;
-    }
-
-    private boolean esUnNumero(String argumento) {
-        try {
-            Integer.valueOf(argumento);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }

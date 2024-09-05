@@ -1,4 +1,4 @@
-package java.ar.edu.untref.dyasc;
+package ar.edu.untref.dyasc;
 
 public class FibonacciException extends Exception {
     public FibonacciException(String mensaje) {
