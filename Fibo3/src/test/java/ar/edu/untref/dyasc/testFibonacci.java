@@ -184,4 +184,52 @@ public class testFibonacci {
         float esperado = (float) 13/ (float) 8;
         assertEquals(esperado, resultado, 0.0001f);
     } 
+    
+    /*Prueba de direccion
+     * prueba de impresion inversa
+    */
+    @SuppressWarnings("static-access")
+    @Test
+    public void testDireccionInversa() {
+        String[] parametros = {"2","-o=ih"}; //{1 ,0}
+        int[] resultado = fiboExe.fibonacciMain(parametros); 
+        int[] esperado = {0,1};
+        assertArrayEquals(esperado, resultado);
+    }
+    
+    /*Prueba de direccion
+     * prueba de impresion directa
+    */
+    @SuppressWarnings("static-access")
+    @Test
+    public void testDireccionDirecta() {
+        String[] parametros = {"3","-o=dh"}; //{0, 1, 1}
+        int[] resultado = fiboExe.fibonacciMain(parametros); 
+        int[] esperado = {0,1,1};
+        assertArrayEquals(esperado, resultado);
+    }
+    
+    /*Prueba de direccion
+     * prueba de impresion horizontal
+    */
+    @SuppressWarnings("static-access")
+    @Test
+    public void testDireccionHorizontal() {
+        String[] parametros = {"4","-o=ih"}; //{0, 1}
+        int[] resultado = fiboExe.fibonacciMain(parametros); 
+        int[] esperado = {0,1,1,2};
+        assertArrayEquals(esperado, resultado);
+    }
+    
+    /*Prueba de direccion
+     * prueba de impresion vertical
+    */
+    @SuppressWarnings("static-access")
+    @Test
+    public void testDireccionVertical() {
+        String[] parametros = {"5","-o=ih"}; //{0, 1}
+        int[] resultado = fiboExe.fibonacciMain(parametros); 
+        int[] esperado = {0,1,1,2,3};
+        assertArrayEquals(esperado, resultado);
+    }  
 }
