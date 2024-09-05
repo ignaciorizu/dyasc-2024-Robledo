@@ -61,11 +61,11 @@ public class FibonacciImpresion {
         return salida;
     }
 
-    /*Calculo de la sumatoria.*/
+    /*Calculo de la sumatoria. La sumatoria de la secuencia de fibonacci converge en F(n+2)-1*/
     private int obtenerSumatoria() {
         int fiboProximo = this.fibonacci[this.fibonacci.length-1] + this.fibonacci[this.fibonacci.length-2];
-        int fiboProximoProximo = fiboProximo + this.fibonacci[this.fibonacci.length-1];
-        int sumaFibo = fiboProximoProximo - 1 ;
+        int fiboProximo2 = fiboProximo + this.fibonacci[this.fibonacci.length-1];
+        int sumaFibo = fiboProximo2 - 1 ;
         return sumaFibo;
     }
 
@@ -94,7 +94,7 @@ public class FibonacciImpresion {
     }
 
     /*Se calcula el numero de oro en base a la lista fibonacci.*/
-    private float calcularNumeroDeOro(){
+    public float calcularNumeroDeOro(){
         float fiboUltimo = this.fibonacci[this.fibonacci.length-1];
         /*Se obtiene el ultimo para tratar con el caso de lenght 1 y 2.
          * En el caso length 1: no habria anteultimo.

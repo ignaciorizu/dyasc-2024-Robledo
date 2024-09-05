@@ -9,38 +9,6 @@ public class OpcionesFibonacci {
     private int vueltas;
     private boolean numOro;
 
-/*
- * 
-        try {
-            if (args.length > 1 && args[0].startsWith("-o=")) { 
-                String direccion = args[0].substring(3);
-                if (direccion.contains("v") || direccion.contains("h") || direccion.contains("d") || direccion.contains("i") ) {    
-                    getFibonacci(Integer.parseInt(args[1]), direccion);
-                } else {
-                    throw new fibonacciException(direccion);
-                }
-            }else if(!args[0].equals("oro") || !args[0].startsWith("-o=")){
-                getFibonacci(Integer.parseInt(args[0]), "hd");
-            }else {
-                throw new ArrayIndexOutOfBoundsException();
-            }
-            if (args.length > 1 && (args[1].equals("oro") || (args.length > 2 && args[2].equals("oro")))){
-                getNumeroDeOro();
-            }
-        } catch (NumberFormatException e){
-            // Capturar la excepción si el String no es un número entero válido
-            falla = true;
-            System.out.println("La cantidad de vueltas posee un formato invalido.");
-        } catch (fibonacciException e) {
-            falla = true;
-            System.out.println("La direccion no tiene un formato valido. Solo puede contener las siguientes conbinaciones vd vi hd hi. No se puede usar " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e){
-            falla = true;
-            System.out.println("No puede ejecutarse el calculo de la secuencia de fibonacci sin tener un numero maximo"); 
-        }
- */
-
-    /* */
     public OpcionesFibonacci(String[] argumentos) throws FibonacciException{
         buscarDatos(argumentos);
     }

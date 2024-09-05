@@ -5,15 +5,17 @@ public class FibonacciEjecutable {
         fibonacciMain(args);
     }
 
-    public static void fibonacciMain(String[] args){
+    public static int[] fibonacciMain(String[] args){
         try{
             OpcionesFibonacci opciones = new OpcionesFibonacci(args);
             Fibonacci fibo = new Fibonacci();
             int[] fibonacci = fibo.obtenerFibonacci(opciones.obtenerVueltas());
             FibonacciImpresion impresion = new FibonacciImpresion(fibonacci, opciones);
             impresion.imprimir();
+            return fibonacci;
         } catch(FibonacciException e){
             System.out.println(e.getMessage());
         }
+        return null;
     } 
 }
