@@ -15,43 +15,68 @@ public class OpcionesFibonacci {
 
     private void buscarDatos(String[] argumentos) throws FibonacciException {
         for (String argumento : argumentos) {
-            if (argumento.startsWith("-o=")) {
-                comprobarDireccion(argumento.substring(3));
-                comprobarOrientacion(argumento.substring(3));
-                /*En caso de que no haya ninguna de las opciones correspondientes lanza un error.*/
-                if (!(this.direccion || this.orientacion || argumento.contains("d") || argumento.contains("h"))) {
-                    throw new FibonacciException("Opciones no validas.");
-                }
-            }
-            if (argumento.startsWith("-m=")) {
-                this.modo = argumento.substring(3);
-                /*En caso de que no haya ninguna de las opciones correspondientes lanza un error.*/
-                if (!(this.modo.contains("s") || this.modo.contains("l"))) {
-                    throw new FibonacciException("Opciones de modo no validas.");
-                }
-            }
-            if (argumento.startsWith("-f=")) {
-                this.salida = true;
-                this.salidaNombre = argumento.substring(3);
-            }
-            if (esUnNumero(argumento)) {
-                this.vueltas = Integer.parseInt(argumento);
-            }
-            if (argumento.startsWith("oro")) {
-                this.numOro = true;
+            validarDireccionHorientacion(argumento);
+            validarModoFuncionamiento(argumento);
+            validarSalida(argumento);
+            validarVueltas(argumento);
+            validarOro(argumento);
+        }
+    }
+
+    /*Revisa que los valores de la direccion y orientacion sean validos.*/
+    private void validarDireccionHorientacion(String argumento) throws FibonacciException {
+        if (argumento.startsWith("-o=")) {
+            comprobarDireccionInversa(argumento.substring(3));
+            comprobarOrientacionVertical(argumento.substring(3));
+            /*En caso de que no haya ninguna de las opciones correspondientes lanza un error.*/
+            if (!(this.direccion || this.orientacion || argumento.contains("d") || argumento.contains("h"))) {
+                throw new FibonacciException("Opciones no validas.");
             }
         }
     }
 
+    /*Revisa que el valor del modo de funcionamieto sea valido.*/
+    private void validarModoFuncionamiento(String argumento) throws FibonacciException {
+        if (argumento.startsWith("-m=")) {
+            this.modo = argumento.substring(3);
+            /*En caso de que no haya ninguna de las opciones correspondientes lanza un error.*/
+            if (!(this.modo.contains("s") || this.modo.contains("l"))) {
+                throw new FibonacciException("Opciones de modo no validas.");
+            }
+        }
+    }
+
+    /*Revisa si el argumento indica el uso de la salida.*/
+    private void validarSalida(String argumento) {
+        if (argumento.startsWith("-f=")) {
+            this.salida = true;
+            this.salidaNombre = argumento.substring(3);
+        }
+    }
+
+    /*Revisa si el argumento indica la cantidad de vueltas.*/
+    private void validarVueltas(String argumento) {
+        if (esUnNumero(argumento)) {
+            this.vueltas = Integer.parseInt(argumento);
+        }
+    }
+
+    /*Revisa si el argumento indica el pedido de obtencion del numero de oro.*/
+    private void validarOro(String argumento) {
+        if (argumento.startsWith("oro")) {
+            this.numOro = true;
+        }
+    }
+
     /*Busca si en las opciones se pide la direccion inversa.*/
-    private void comprobarDireccion(String direccion){
+    private void comprobarDireccionInversa(String direccion){
         if (direccion.contains("i") ) {    
             this.direccion = true;
         }
     }
 
     /*Busca si en las opciones se pide la orientacion vertical.*/
-    private void comprobarOrientacion(String orientacion){
+    private void comprobarOrientacionVertical(String orientacion){
         if (orientacion.contains("v") ) {    
             this.orientacion = true;
         }

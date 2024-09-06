@@ -6,37 +6,46 @@ import java.io.PrintWriter;
 public class FibonacciImpresion {
     private final int[] fibonacci;
     private final OpcionesFibonacci opciones;
+    private String salida = "";
 
     public FibonacciImpresion(int[] fibonacci, OpcionesFibonacci opciones) {
         this.fibonacci = fibonacci;
         this.opciones = opciones;
+        generarSalida();
+    }
+
+    public String obtenerSalida(){
+        imprimir();
+        return this.salida;
     }
 
     /*Se buscan por todas las opcciones y se imprime las pedidas*/
-    public void imprimir(){
+    private void imprimir(){
+        if(this.opciones.obtenerSalida()){
+            crearSalida(this.opciones.obtenerSalidaNombre());
+        } else {
+            System.out.println(this.salida);
+        }
+    }
+
+    /*Se genera el string para imprimir.*/
+    private void generarSalida(){
         String modo = this.opciones.obtenerModo();
-        String salida = "";
         if("l".equals(modo)){
-            salida = imprimirLista();
+            imprimirLista();
         }else if("s".equals(modo)){
-            salida = imprimirSumatoria();
+            imprimirSumatoria();
         }
         if(this.opciones.buscarOro()){
             imprimirNumOro();
         }
-        if(this.opciones.obtenerSalida()){
-            crearSalida(this.opciones.obtenerSalidaNombre(), salida);
-        } else {
-            System.out.println(salida);
-        }
     }
 
     /*Se imprime en formato de lista */
-    private String imprimirLista(){
+    private void imprimirLista(){
         int num;
-        String salida = "";
         //Incio de formato de salida
-        salida += "fibo<" + this.fibonacci.length + ">: ";
+        this.salida += "fibo<" + this.fibonacci.length + ">: ";
         //Impresion de valores de fibo
         for (int vuelta = 0; vuelta < this.fibonacci.length; vuelta++) {
             num = vuelta;
@@ -46,19 +55,16 @@ public class FibonacciImpresion {
             }
             //Impresion en Orientación inversa
             if(this.opciones.obtenerOrientacion()){
-                salida += "\n";   
+                this.salida += "\n";   
             }
             //Impresion de valor ej pa posicion num
-            salida += Integer.toString(this.fibonacci[num]) + " ";
+            this.salida += Integer.toString(this.fibonacci[num]) + " ";
         }
-         
-        return salida;
     }
 
     /*Se imprime en formato de sumatoria.*/
-    private String imprimirSumatoria() {
-        String salida = "fibo<"+ this.fibonacci.length +">s: " + obtenerSumatoria();
-        return salida;
+    private void imprimirSumatoria() {
+        this.salida += "fibo<"+ this.fibonacci.length +">s: " + obtenerSumatoria();
     }
 
     /*Calculo de la sumatoria. La sumatoria de la secuencia de fibonacci converge en F(n+2)-1*/
@@ -70,16 +76,17 @@ public class FibonacciImpresion {
     }
 
     /*Crear y escribir el archivo de la salida.*/
-    private void crearSalida(String salidaNombre, String salida) {
-        salidaNombre = "Fibo3/Salidas/" + salidaNombre;
+    private void crearSalida(String salidaNombre) {
+        salidaNombre = "Fibo/Salidas/" + salidaNombre;
         /*
          *PrintWriter se encarga de crear un objeto para escribir.
          *FileWrite crea un archivo con el nombre pasado por parametro.
          */
         try(PrintWriter escritor = new PrintWriter(new FileWriter(salidaNombre))) {
             // Escribir en el archivo
-            escritor.println(salida);
-            System.out.println("fibo<" + this.fibonacci.length + "> guardado en " + salidaNombre);
+            escritor.println(this.salida);
+            this.salida = "fibo<" + this.fibonacci.length + "> guardado en " + salidaNombre;
+            System.out.println(this.salida);
         } catch (IOException e) {
             System.out.println("Ocurrió un error al crear o escribir en el archivo.\n" + e.getMessage());
         }
@@ -89,7 +96,7 @@ public class FibonacciImpresion {
     private void imprimirNumOro() {
         double phi = (1 + Math.sqrt(5)) / 2;
         float numOro = calcularNumeroDeOro();
-        System.out.print("\nEl numero de oro obtenido con este largo de la secuencia de fibonacci es " + numOro + 
+        this.salida += ("\nEl numero de oro obtenido con este largo de la secuencia de fibonacci es " + numOro + 
                         ".\n El numero de oro real es " + phi +".");
     }
 

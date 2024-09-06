@@ -11,7 +11,7 @@ public class FibonacciEjecutable {
             Fibonacci fibo = new Fibonacci();
             int[] fibonacci = fibo.obtenerFibonacci(opciones.obtenerVueltas());
             FibonacciImpresion impresion = new FibonacciImpresion(fibonacci, opciones);
-            impresion.imprimir();
+            impresion.obtenerSalida();
             return fibonacci;
         } catch(FibonacciException e){
             System.out.println(e.getMessage());
