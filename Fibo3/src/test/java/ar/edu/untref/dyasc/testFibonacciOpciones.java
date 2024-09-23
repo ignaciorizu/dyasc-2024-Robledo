@@ -174,7 +174,7 @@ public class testFibonacciOpciones {
         int[] fibo = fiboExe.fibonacciMain(parametros); 
         OpcionesFibonacci opciones = new OpcionesFibonacci(parametros);
         FibonacciImpresion fiboImp = new FibonacciImpresion(fibo,opciones);
-        String esperado = "fibo<5>s: 7";
+        String esperado = "fibo<5>s: \n7";
         assertEquals(esperado, fiboImp.obtenerSalida());
         assertTrue(opciones.obtenerDireccion());
         assertTrue(opciones.obtenerOrientacion());
@@ -211,7 +211,9 @@ public class testFibonacciOpciones {
         OpcionesFibonacci opciones = new OpcionesFibonacci(parametros);
         FibonacciImpresion fiboImp = new FibonacciImpresion(fibo,opciones);
         String esperado = "fibo<5> guardado en Fibo3/Salidas/salida1.txt";
-        assertEquals(esperado, fiboImp.obtenerSalida());
+        //assertEquals(esperado, fiboImp.obtenerSalida());
+        String esperadoDocumento = "fibo<5>: 0 1 1 2 3 ";
+        assertEquals(esperadoDocumento, fiboImp.obtenerSalidaDocumento());
         assertFalse(opciones.obtenerDireccion());
         assertFalse(opciones.obtenerOrientacion());
         assertEquals("l",opciones.obtenerModo());
@@ -230,7 +232,9 @@ public class testFibonacciOpciones {
         OpcionesFibonacci opciones = new OpcionesFibonacci(parametros);
         FibonacciImpresion fiboImp = new FibonacciImpresion(fibo,opciones);
         String esperado = "fibo<5> guardado en Fibo3/Salidas/salida2.txt";
-        assertEquals(esperado, fiboImp.obtenerSalida());
+        //assertEquals(esperado, fiboImp.obtenerSalida());
+        String esperadoDocumento = "fibo<5>: 3 2 1 1 0 ";
+        assertEquals(esperadoDocumento, fiboImp.obtenerSalidaDocumento());
         assertTrue(opciones.obtenerDireccion());
         assertTrue(opciones.obtenerOrientacion());
         assertEquals("l",opciones.obtenerModo());
@@ -249,7 +253,9 @@ public class testFibonacciOpciones {
         OpcionesFibonacci opciones = new OpcionesFibonacci(parametros);
         FibonacciImpresion fiboImp = new FibonacciImpresion(fibo,opciones);
         String esperado = "fibo<5> guardado en Fibo3/Salidas/salida3.txt";
-        assertEquals(esperado, fiboImp.obtenerSalida());
+        //assertEquals(esperado, fiboImp.obtenerSalida());
+        String esperadoDocumento = "fibo<5>s: \n7";
+        assertEquals(esperadoDocumento, fiboImp.obtenerSalidaDocumento());
         assertTrue(opciones.obtenerDireccion());
         assertTrue(opciones.obtenerOrientacion());
         assertEquals("s",opciones.obtenerModo());

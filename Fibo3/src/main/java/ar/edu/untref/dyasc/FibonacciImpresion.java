@@ -7,6 +7,7 @@ public class FibonacciImpresion {
     private final int[] fibonacci;
     private final OpcionesFibonacci opciones;
     private String salida = "";
+    private String salidaDocumento = "";
 
     public FibonacciImpresion(int[] fibonacci, OpcionesFibonacci opciones) {
         this.fibonacci = fibonacci;
@@ -17,6 +18,10 @@ public class FibonacciImpresion {
     public String obtenerSalida(){
         imprimir();
         return this.salida;
+    }
+
+    public String obtenerSalidaDocumento(){
+        return this.salidaDocumento;
     }
 
     /*Se buscan por todas las opcciones y se imprime las pedidas*/
@@ -64,7 +69,11 @@ public class FibonacciImpresion {
 
     /*Se imprime en formato de sumatoria.*/
     private void imprimirSumatoria() {
-        this.salida += "fibo<"+ this.fibonacci.length +">s: " + obtenerSumatoria();
+        this.salida += "fibo<"+ this.fibonacci.length +">s: ";
+        if(opciones.obtenerDireccion()){
+            this.salida+= "\n";
+        }
+        this.salida += obtenerSumatoria();
     }
 
     /*Calculo de la sumatoria. La sumatoria de la secuencia de fibonacci converge en F(n+2)-1*/
@@ -84,7 +93,8 @@ public class FibonacciImpresion {
          */
         try(PrintWriter escritor = new PrintWriter(new FileWriter(salidaNombre))) {
             // Escribir en el archivo
-            escritor.println(this.salida);
+            this.salidaDocumento = this.salida;
+            escritor.println(this.salidaDocumento);
             this.salida = "fibo<" + this.fibonacci.length + "> guardado en " + salidaNombre;
             System.out.println(this.salida);
         } catch (IOException e) {
